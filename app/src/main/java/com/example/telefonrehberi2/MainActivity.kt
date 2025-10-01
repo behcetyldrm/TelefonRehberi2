@@ -12,17 +12,19 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.telefonrehberi2.ui.theme.TelefonRehberi2Theme
+import com.example.telefonrehberi2.view.AnasayfaScreen
+import com.example.telefonrehberi2.view.KisiEkleScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,9 +46,19 @@ class MainActivity : ComponentActivity() {
 
                         NavHost(navController, startDestination = "anasayfa") {
 
-                            composable("anasayfa"){  }
-                            composable("kisi_ekle") {  }
-                            composable("kisi_duzenle"){  }
+                            composable("anasayfa"){ AnasayfaScreen(navController) }
+
+                            composable("kisi_ekle") { KisiEkleScreen(navController) }
+
+                            composable(
+                                "kisi_detay/{kisiId}",
+                                arguments = listOf(navArgument("kisiId") { type = NavType.IntType })
+                            ) {
+                                val kisiId = it.arguments?.getInt("kisiId")
+                                kisiId?.let { id ->
+                                    KisiEkleScreen(navController, id)
+                                }
+                            }
                         }
                     }
                 }
