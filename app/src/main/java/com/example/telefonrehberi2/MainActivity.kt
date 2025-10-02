@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                             composable("kisi_ekle") { KisiEkleScreen(navController) }
 
                             composable(
-                                "kisi_detay/{kisiId}",
+                                route = "kisi_detay/{kisiId}",
                                 arguments = listOf(navArgument("kisiId") { type = NavType.IntType })
                             ) {
                                 val kisiId = it.arguments?.getInt("kisiId")

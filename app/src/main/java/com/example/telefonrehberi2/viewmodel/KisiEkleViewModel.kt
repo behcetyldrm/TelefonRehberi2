@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class KisiEkleViewModel @Inject constructor(private val dao: RehberDao) : ViewModel() {
 
-    var selectedData by mutableStateOf(RehberModel(name = "", phoneNumber = ""))
+    var selectedData by mutableStateOf(RehberModel(name = "abs", phoneNumber = "44554545"))
     fun saveData(kisi: RehberModel) {
         viewModelScope.launch (Dispatchers.IO){
             dao.insertData(kisi)
